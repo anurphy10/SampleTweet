@@ -77,7 +77,7 @@ public class TimelineActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() ==R.id.compose) {
             Intent intent = new Intent(this, ComposeActivity.class);
-            startActivityForResult(intent, REQUEST_CODE);
+            startActivityForResult(intent,REQUEST_CODE);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -85,7 +85,7 @@ public class TimelineActivity extends AppCompatActivity  {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == REQUEST_CODE && REQUEST_CODE == RESULT_OK) {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             Tweet tweet = Parcels.unwrap(data.getParcelableExtra("tweet"));
             tweets.add(0,tweet);
             adapter.notifyItemInserted(0);

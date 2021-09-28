@@ -54,15 +54,17 @@ public class ComposeActivity extends AppCompatActivity {
                 }
                 Toast.makeText(ComposeActivity.this, tweetContent, Toast.LENGTH_SHORT).show();
                 client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
+
                     @Override
                     public void onSuccess(int statusCode, Headers headers, JSON json) {
                         Log.e(TAG, "onSuccess to public tweet");
                         try {
                             Tweet tweet = Tweet.fromJson(json.jsonObject);
-                            Log.i(TAG, " Public Tweet says: " + tweet.body);
+                            Log.i(TAG, " Public Tweet says: " + tweet);
                             Intent intent = new Intent();
-                            intent.putExtra("tweet", Parcels.wrap(tweet));
-                            setResult(RESULT_OK,intent);
+                            intent.putExtra("tweet", Parcels.wrap(tweet.body));
+                            setResult(RESULT_OK, intent);
+                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -70,7 +72,7 @@ public class ComposeActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-                        Log.e(TAG, "onFaiilure to public tweet", throwable);
+                        Log.e(TAG, "onFailure to public tweet", throwable);
                     }
                 });
             }
